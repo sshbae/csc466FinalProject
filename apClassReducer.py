@@ -16,7 +16,22 @@ def main():
     expensive = prices[3*divisions:4*divisions]
     vExpensive = prices[4*divisions:]
     print(f"vcheap: {vCheap}\ncheap: {cheap}\nmod: {moderate}\nexpensive: {expensive}\nvExpensive: {vExpensive}")
-
+    
+    apdf["PriceRange"] = ""
+    for index,rows in apdf.iterrows():
+        price = rows["AveragePrice"]
+#how to get this to actually change the df?
+        if np.isin(price,vCheap):
+            apdf.loc[index,"PriceRange"] = "vCheap"
+        elif np.isin(price, cheap):
+            apdf.loc[index, "PriceRange"] = "cheap"
+        elif np.isin(price, moderate):
+            apdf.loc[index,"PriceRange"] = "moderate"
+        elif np.isin(price, expensive):
+            apdf.loc[index,"PriceRange"] = "expensive"
+        elif np.isin(price, vExpensive):
+            apdf.loc[index,"PriceRange"] = "expensive"
+    print(apdf)
 
 if __name__ == '__main__':
     main()
