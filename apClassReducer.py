@@ -8,30 +8,28 @@ def main():
     prices = pd.unique(apdf["AveragePrice"])
     prices = np.sort(prices)
     divisions = int(prices.size/5)
-    print(f"max is {prices.max()}")
-    print(f"min is {prices.min()}")
-    vCheap = prices[:divisions]
+    v_cheap = prices[:divisions]
     cheap = prices[divisions:2*divisions]
     moderate = prices[2*divisions:3*divisions]
     expensive = prices[3*divisions:4*divisions]
-    vExpensive = prices[4*divisions:]
-    print(f"vcheap: {vCheap}\ncheap: {cheap}\nmod: {moderate}\nexpensive: {expensive}\nvExpensive: {vExpensive}")
+    v_expensive = prices[4*divisions:]
     
     apdf["PriceRange"] = ""
     for index,rows in apdf.iterrows():
         price = rows["AveragePrice"]
-#how to get this to actually change the df?
-        if np.isin(price,vCheap):
-            apdf.loc[index,"PriceRange"] = "vCheap"
+        if np.isin(price,v_cheap):
+            apdf.loc[index,"PriceRange"] = "v_cheap"
         elif np.isin(price, cheap):
             apdf.loc[index, "PriceRange"] = "cheap"
         elif np.isin(price, moderate):
             apdf.loc[index,"PriceRange"] = "moderate"
         elif np.isin(price, expensive):
             apdf.loc[index,"PriceRange"] = "expensive"
-        elif np.isin(price, vExpensive):
-            apdf.loc[index,"PriceRange"] = "expensive"
-    print(apdf)
+        elif np.isin(price, v_expensive):
+            apdf.loc[index,"PriceRange"] = "v_expensive"
+
+    outfile = open("./finalProj/avoPricesCategor.csv", "w+")
+    apdf.to_csv(outfile)
 
 if __name__ == '__main__':
     main()
