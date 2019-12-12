@@ -35,7 +35,7 @@ def classify_region(df: pd.DataFrame, region):
     return df
 
 def main():
-    apdf = pd.read_csv("./finalProj/avoPrices.csv")
+    apdf = pd.read_csv("./finalProj/avoPricesMonths.csv")
     apdf.sort_values('AveragePrice', inplace=True)
     for region in apdf['region'].unique():
         apdf = classify_region(apdf, region)
