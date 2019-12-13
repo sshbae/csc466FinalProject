@@ -44,13 +44,12 @@ def get_clusters(avo_toast_trends, avo_trends, ownership_rate, vacancy_rate):
 
 
 def get_matches(clusters):
-    m = pd.DataFrame(index=['avo_own', 'avo_vac', 'tst_own', 'tst_vac'], columns=[list(clusters.keys()) + ['totals',
-                                                                                  'averages']])
-    m[:] = 0
     matches = {}
+    matching_clusters = {}
     matches['totals'] = {'avo_own': 0, 'avo_vac': 0, 'tst_own': 0, 'tst_vac': 0}
     for quarter in clusters:
         matches[quarter] = {'avo_own': 0, 'avo_vac': 0, 'tst_own': 0, 'tst_vac': 0}
+        matching_clusters[quarter] = {'avo_own': {}, 'avo_vac': {}, 'tst_own': {}, 'tst_vac': {}}
 
         cluster_nos = list(range(K))
         for clust in clusters[quarter]['avo'][1]:
@@ -61,10 +60,11 @@ def get_matches(clusters):
                 if num_matched > best_match[1]:
                     best_match = (clust_no, num_matched)
             matches[quarter]['avo_own'] += best_match[1]
-            m.loc['avo_own', quarter] += best_match[1]
             matches['totals']['avo_own'] += best_match[1]
             if best_match[0] is not None:
                 cluster_nos.remove(best_match[0])
+                matching_clusters[quarter]['avo_own'].update({tuple(clust): clusters[quarter]['ownership'][1][
+                    best_match[0]]})
 
         cluster_nos = list(range(K))
         for clust in clusters[quarter]['toast'][1]:
@@ -78,6 +78,8 @@ def get_matches(clusters):
             matches['totals']['tst_own'] += best_match[1]
             if best_match[0] is not None:
                 cluster_nos.remove(best_match[0])
+                matching_clusters[quarter]['tst_own'].update({tuple(clust): clusters[quarter]['ownership'][1][
+                    best_match[0]]})
 
         cluster_nos = list(range(K))
         for clust in clusters[quarter]['avo'][1]:
@@ -91,6 +93,8 @@ def get_matches(clusters):
             matches['totals']['avo_vac'] += best_match[1]
             if best_match[0] is not None:
                 cluster_nos.remove(best_match[0])
+                matching_clusters[quarter]['avo_vac'].update({tuple(clust): clusters[quarter]['vacancy'][1][best_match[
+                    0]]})
 
         cluster_nos = list(range(K))
         for clust in clusters[quarter]['toast'][1]:
@@ -104,13 +108,16 @@ def get_matches(clusters):
             matches['totals']['tst_vac'] += best_match[1]
             if best_match[0] is not None:
                 cluster_nos.remove(best_match[0])
+                matching_clusters[quarter]['tst_vac'].update({tuple(clust): clusters[quarter]['vacancy'][1][best_match[
+                    0]]})
+
     num_quarters = len(matches) - 1
     matches['averages'] = {'avo_own': 0, 'avo_vac': 0, 'tst_own': 0, 'tst_vac': 0}
     matches['averages']['avo_own'] = matches['totals']['avo_own'] / num_quarters / 51
     matches['averages']['avo_vac'] = matches['totals']['avo_vac'] / num_quarters / 51
     matches['averages']['tst_own'] = matches['totals']['tst_own'] / num_quarters / 51
     matches['averages']['tst_vac'] = matches['totals']['tst_vac'] / num_quarters / 51
-    return pd.DataFrame(matches)
+    return pd.DataFrame(matches), pd.DataFrame(matching_clusters)
 
 def main():
     avo_trends = pd.read_csv('./finalProj/trends_avocado.csv', index_col='state')
@@ -122,9 +129,11 @@ def main():
     vacancy_rate = pd.read_csv('finalProj/homeowner_vacancy_rates.csv', header=0, index_col=0).astype(np.float)
 
     clusters = get_clusters(avo_toast_trends, avo_trends, ownership_rate, vacancy_rate)
-    matches = get_matches(clusters)
+    matches, m_clusters = get_matches(clusters)
     print(matches['averages'])
-    matches.to_csv('./out/hpVSgoogle.csv')
+    matches.to_csv('./out/hpVSgoogle2.csv')
+    pd.DataFrame(clusters).to_csv('./out/hpVSgoogleClusters.csv')
+    m_clusters.to_csv('./out/hpVsGoogleMClusters')
 
 if __name__ == '__main__':
     main()
