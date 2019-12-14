@@ -20,15 +20,23 @@ def main():
     googdf = googdf.astype(np.float)
     googRegions = np.frompyfunc(lambda x:x[3:],1,1)(list(googdf.index))
 
+    toastdf = pd.read_csv("./finalProj/trends_avocado_toast.csv",index_col = 'state')
+    toastdf.fillna(0, inplace=True)
+    toastdf = toastdf.astype(np.float)
+    toastRegions = np.frompyfunc(lambda x:x[3:],1,1)(list(toastdf.index))
+
 #hclustering
-    #fig = ff.create_dendrogram(apdf,labels=regions.values)
-    #fig.update_layout(width=2500, height=800)
-    #fig.show()
+    fig = ff.create_dendrogram(apdf,labels=apRegions.values)
+    fig.update_layout(width=2500, height=800)
+    fig.show()
 
     fig = ff.create_dendrogram(googdf,labels=list(googdf.index))
     fig.update_layout(width=800, height=500)
     fig.show()
 
+    fig = ff.create_dendrogram(toastdf,labels=list(toastdf.index))
+    fig.update_layout(width=800, height=500)
+    fig.show()
     #numRegions = pd.unique(regions).size
 
 #db scan
@@ -38,8 +46,10 @@ def main():
 #kmeans
     ap_centroids, ap_clusters = vq.kmeans2(apdf, k=10, minit='points')
     goog_centroids, goog_clusters = vq.kmeans2(googdf, k=10, minit='points')
+    toast_centroids, toast_clusters = vq.kmeans2(toastdf, k=10, minit='points')
     apClusters = {}
     googClusters = {}
+    toastClusters = {}
     for i in range(ap_clusters.size):
         key = str(ap_clusters[i])
         if key in apClusters:
@@ -53,6 +63,13 @@ def main():
             googClusters[key].append(googRegions[i])
         else:
             googClusters[key] = [googRegions[i]]
+
+    for i in range(toast_clusters.size):
+        key = str(toast_clusters[i])
+        if key in toastClusters:
+            toastClusters[key].append(toastRegions[i])
+        else:
+            toastClusters[key] = [toastRegions[i]]
 
     print("Avocado Prices", end="")
     for key in apClusters:
@@ -68,6 +85,11 @@ def main():
     for key in googClusters:
         print(f"\nCluster {key}:")
         print(googClusters[key])
+
+    print("\nToast Searches")
+    for key in toastClusters:
+        print(f"\nCluster {key}:")
+        print(toastClusters[key])
 
 if __name__ == "__main__":
     main()
