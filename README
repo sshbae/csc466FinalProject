@@ -1,0 +1,15 @@
+#CSC466 F19 Final Project
+#Sarah Bae, shbae@calpoly.edu
+#Wesley Benica, wbenica@calpoly.edu
+#Roxanne Miller, rmille60@calpoly.edu
+#Isabel Rico, isrico@calpoly.edu
+
+#apAllToNum.py >> finalProj/avoPricesNumerical.csv
+#apClassReducer.py >> finalProj/avoPricesCategor.csv
+#apGetAvgPrices.py >> finalProj/avoPricesAvg.csv
+#avoPriceRegionsToStates.py
+#get_trends.py
+
+#apVSgoogle.py 
+#apVSrain.py
+#classify.py <csv filename> <json filename>
