@@ -9,6 +9,7 @@ import json
 import avoPriceRegionsToStates
 import plotly.express as px
 
+
 def plotAvgs():
     avgPricedf = pd.read_csv("./finalProj/avoPricesAvg.csv")
     fig = px.bar(avgPricedf, x='region', y='Total Volume')
@@ -42,6 +43,17 @@ def plotStatesToast():
     fig.update_layout(title_text='Searches "avocado toast" by State')
     fig.show()
 
+def kmeans(df,apRegions):
+    ap_centroids, ap_clusters = vq.kmeans2(df, k=10, minit='points')
+    apClusters = {}
+    for i in range(ap_clusters.size):
+        key = str(ap_clusters[i])
+        if key in apClusters:
+            apClusters[key].append(apRegions[i])
+        else:
+            apClusters[key] = [apRegions[i]]
+    return apClusters
+
 def main():
     plotAvgs()
     plotStatesAvo()
@@ -66,9 +78,9 @@ def main():
     toastRegions = np.frompyfunc(lambda x:x[3:],1,1)(list(toastdf.index))
 
 #hclustering
-    fig = ff.create_dendrogram(apdf,labels=apRegions.values)
-    fig.update_layout(width=2500, height=800)
-    fig.show()
+   # fig = ff.create_dendrogram(apdf,labels=apRegions.values)
+   # fig.update_layout(width=2500, height=800)
+   # fig.show()
 
     fig = ff.create_dendrogram(googdf,labels=list(googdf.index))
     fig.update_layout(width=800, height=500)
@@ -84,32 +96,9 @@ def main():
     #dbPlot(db, newdf)
 
 #kmeans
-    ap_centroids, ap_clusters = vq.kmeans2(apdf, k=10, minit='points')
-    goog_centroids, goog_clusters = vq.kmeans2(googdf, k=10, minit='points')
-    toast_centroids, toast_clusters = vq.kmeans2(toastdf, k=10, minit='points')
-    apClusters = {}
-    googClusters = {}
-    toastClusters = {}
-    for i in range(ap_clusters.size):
-        key = str(ap_clusters[i])
-        if key in apClusters:
-            apClusters[key].append(apRegions[i])
-        else:
-            apClusters[key] = [apRegions[i]]
-
-    for i in range(goog_clusters.size):
-        key = str(goog_clusters[i])
-        if key in googClusters:
-            googClusters[key].append(googRegions[i])
-        else:
-            googClusters[key] = [googRegions[i]]
-
-    for i in range(toast_clusters.size):
-        key = str(toast_clusters[i])
-        if key in toastClusters:
-            toastClusters[key].append(toastRegions[i])
-        else:
-            toastClusters[key] = [toastRegions[i]]
+    apClusters = kmeans(apdf, apRegions)
+    googClusters = kmeans(googdf, googRegions)
+    toastClusters = kmeans(toastdf, toastRegions)
 
     print("Avocado Prices", end="")
     for key in apClusters:
