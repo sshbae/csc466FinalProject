@@ -26,13 +26,13 @@ def main():
     toastRegions = np.frompyfunc(lambda x:x[3:],1,1)(list(toastdf.index))
 
 #hclustering
-#    fig = ff.create_dendrogram(apdf,labels=apRegions.values)
- #   fig.update_layout(width=2500, height=800)
-  #  fig.show()
+    fig = ff.create_dendrogram(apdf,labels=apRegions.values)
+    fig.update_layout(width=2500, height=800)
+    fig.show()
 
-   # fig = ff.create_dendrogram(googdf,labels=list(googdf.index))
-   # fig.update_layout(width=800, height=500)
-   # fig.show()
+    fig = ff.create_dendrogram(googdf,labels=list(googdf.index))
+    fig.update_layout(width=800, height=500)
+    fig.show()
 
     fig = ff.create_dendrogram(toastdf,labels=list(toastdf.index))
     fig.update_layout(width=800, height=500)
