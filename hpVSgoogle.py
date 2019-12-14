@@ -1,6 +1,7 @@
 from scipy.cluster import vq
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 K = 4
 
@@ -131,9 +132,9 @@ def main():
     clusters = get_clusters(avo_toast_trends, avo_trends, ownership_rate, vacancy_rate)
     matches, m_clusters = get_matches(clusters)
     print(matches['averages'])
-    matches.to_csv('./out/hpVSgoogle2.csv')
+    matches.to_csv('./out/hpVSgoogle.csv')
     pd.DataFrame(clusters).to_csv('./out/hpVSgoogleClusters.csv')
-    m_clusters.to_csv('./out/hpVsGoogleMClusters')
+    m_clusters.to_csv('./out/hpVsGoogleMClusters.csv')
 
 if __name__ == '__main__':
     main()
