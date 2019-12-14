@@ -1,5 +1,5 @@
 # http://www.apache.org/licenses/LICENSE-2.0
-
+# get_trends.py >> trends_avocado.csv, trends_avocado_toast.csv
 from pytrends.request import TrendReq
 import os
 import pandas as pd
