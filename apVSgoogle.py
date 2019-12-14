@@ -62,7 +62,6 @@ def main():
     apdf = pd.read_csv("./finalProj/avoPricesNumerical.csv")
     apdf = apdf[apdf.region != 'TotalUS']
     apRegions = apdf["region"]
-    print(pd.unique(apRegions))
     for i in range(apRegions.size):
         apRegions[i] = avoPriceRegionsToStates.REGION_TO_STATES[apRegions[i]]
     apdf.drop("region", axis=1, inplace = True)
@@ -78,16 +77,18 @@ def main():
     toastRegions = np.frompyfunc(lambda x:x[3:],1,1)(list(toastdf.index))
 
 #hclustering
-   # fig = ff.create_dendrogram(apdf,labels=apRegions.values)
-   # fig.update_layout(width=2500, height=800)
-   # fig.show()
-
-    fig = ff.create_dendrogram(googdf,labels=list(googdf.index))
-    fig.update_layout(width=800, height=500)
+    fig = ff.create_dendrogram(apdf,labels=apRegions.values)
+    fig.update_layout(width=2500, height=800)
     fig.show()
 
-    fig = ff.create_dendrogram(toastdf,labels=list(toastdf.index))
+    fig = ff.create_dendrogram(googdf,labels=googRegions)
     fig.update_layout(width=800, height=500)
+    fig.update_layout(title_text='Searches "avocado" by State')
+    fig.show()
+
+    fig = ff.create_dendrogram(toastdf,labels=toastRegions)
+    fig.update_layout(width=800, height=500)
+    fig.update_layout(title_text='Searches "avocado toast" by State')
     fig.show()
    #numRegions = pd.unique(regions).size
 
