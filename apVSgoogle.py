@@ -7,10 +7,50 @@ from scipy.cluster import vq
 import matplotlib.pyplot as plt
 import json
 import avoPriceRegionsToStates
+import plotly.express as px
+
+def plotAvgs():
+    avgPricedf = pd.read_csv("./finalProj/avoPricesAvg.csv")
+    fig = px.bar(avgPricedf, x='region', y='Total Volume')
+    fig.update_layout(xaxis={'categoryorder':'total descending'})
+    fig.update_layout(title_text='Avocado Purchases by State')
+    fig.show()
+
+    fig = px.bar(avgPricedf, x='region', y='AveragePrice')
+    fig.update_layout(xaxis={'categoryorder':'total descending'})
+    fig.update_layout(title_text='Average Avocado Price by State')
+    fig.show()
+
+
+def plotStatesAvo():
+    googdf = pd.read_csv("./finalProj/trends_avocado.csv")
+    googdf.fillna(0, inplace=True)
+    googdf["state"] = np.frompyfunc(lambda x:x[3:],1,1)(googdf["state"])
+    googdf["total"] = googdf.sum(axis=1)
+    fig = px.bar(googdf,x = 'state', y='total')
+    fig.update_layout(xaxis={'categoryorder':'total descending'})
+    fig.update_layout(title_text='Searches "avocado" by State')
+    fig.show()
+
+def plotStatesToast():
+    toastdf = pd.read_csv("./finalProj/trends_avocado_toast.csv")
+    toastdf.fillna(0, inplace=True)
+    toastdf["state"] = np.frompyfunc(lambda x:x[3:],1,1)(toastdf["state"])
+    toastdf["total"] = toastdf.sum(axis=1)
+    fig = px.bar(toastdf,x = 'state', y='total')
+    fig.update_layout(xaxis={'categoryorder':'total descending'})
+    fig.update_layout(title_text='Searches "avocado toast" by State')
+    fig.show()
 
 def main():
+    plotAvgs()
+    plotStatesAvo()
+    plotStatesToast()
+
     apdf = pd.read_csv("./finalProj/avoPricesNumerical.csv")
+    apdf = apdf[apdf.region != 'TotalUS']
     apRegions = apdf["region"]
+    print(pd.unique(apRegions))
     for i in range(apRegions.size):
         apRegions[i] = avoPriceRegionsToStates.REGION_TO_STATES[apRegions[i]]
     apdf.drop("region", axis=1, inplace = True)
@@ -37,7 +77,7 @@ def main():
     fig = ff.create_dendrogram(toastdf,labels=list(toastdf.index))
     fig.update_layout(width=800, height=500)
     fig.show()
-    #numRegions = pd.unique(regions).size
+   #numRegions = pd.unique(regions).size
 
 #db scan
     #db = DBSCAN(eps=0.3, min_samples=numRegions/apdf.shape[0]).fit(newdf)
@@ -81,7 +121,6 @@ def main():
         print(uniques)
 
     print("\nGoogle Searches")
-    #print(json.dumps(googClusters, indent=2))
     for key in googClusters:
         print(f"\nCluster {key}:")
         print(googClusters[key])
