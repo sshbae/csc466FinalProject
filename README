@@ -13,7 +13,7 @@
     outputs google trends data from 2004-01-01 to 2019-11-30 for 'avocado' and 'avocado toast' broken down by
     state + DC
 
-#apVSgoogle.py outputs bar graphs, hierarchical dentrographs, printed clusters
+#apVSgoogle.py outputs bar graphs, hierarchical dendrographs, printed clusters
 
 #hpVSgoogle.py >> hpVSgoogle.csv, hpVSgoogleClusters.csv, hpVSgoogleMClusters.csv
     clusters states based on homeownership, vacancies, 'avocado' searches and 'avocado toast' searches
@@ -23,3 +23,7 @@
      ownership, 'avocado toast' : vacancies
 
 #apVSrain.py >> finalProj/apvrainfall/conf_matrix_*.csv, stats_*.csv
+
+#apVSminWage.py
+    Prints the best model's accuracy on the test data, best score on the training data, and best hyperparameter values in addition to the confusion matrix for the testing data. Prints these values for both the single decision tree and the random forest 
+
