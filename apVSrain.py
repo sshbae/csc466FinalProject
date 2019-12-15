@@ -1,3 +1,5 @@
+#apVSrain.py >> finalProj/apvrainfall/conf_matrix_*.csv, stats_*.csv
+
 import scipy
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier

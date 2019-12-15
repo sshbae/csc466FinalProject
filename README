@@ -11,5 +11,5 @@
 #get_trends.py
 
 #apVSgoogle.py 
-#apVSrain.py
+#apVSrain.py >> finalProj/apvrainfall/conf_matrix_*.csv, stats_*.csv
 #classify.py <csv filename> <json filename>
