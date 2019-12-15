@@ -1,0 +1,24 @@
+#CSC466 F19 Final Project
+#Sarah Bae, shbae@calpoly.edu
+#Wesley Benica, wbenica@calpoly.edu
+#Roxanne Miller, rmille60@calpoly.edu
+#Isabel Rico, isrico@calpoly.edu
+
+#apAllToNum.py >> finalProj/avoPricesNumerical.csv
+#apClassReducer.py >> finalProj/avoPricesCategor.csv
+#apGetAvgPrices.py >> finalProj/avoPricesAvg.csv
+#avoPriceRegionsToStates.py
+
+#get_trends.py >> trends_avocado.csv, trends_avocado_toast.csv
+    outputs google trends data from 2004-01-01 to 2019-11-30 for 'avocado' and 'avocado toast' broken down by
+    state + DC
+
+#apVSgoogle.py >> hpVSgoogle.csv, hpVSgoogleClusters.csv, hpVSgoogleMClusters.csv
+    clusters states based on homeownership, vacancies, 'avocado' searches and 'avocado toast' searches
+    hpVSgoogle.csv is the raw count for overlapping clusters
+    hpVSgoogleClusters.csv are the clusters created
+    hpVSgoogleMClusters.csv lists the matching clusters: 'avocado' : ownership, 'avocado' : vacancies, 'avocado toast' :
+     ownership, 'avocado toast' : vacancies
+
+#apVSrain.py >> finalProj/apvrainfall/conf_matrix_*.csv, stats_*.csv
+#classify.py <csv filename> <json filename>

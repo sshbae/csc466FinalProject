@@ -1,0 +1,7 @@
+,Precision,Recall,F-Measure
+cheap,48.55,52.5,50.45
+expensive,42.31,14.82,21.951
+moderate,60.12,71.12,65.163
+v_cheap,68.25,55.23,61.054
+v_expensive,48.16,64.37,55.095
+avg,53.48,51.61,50.743
