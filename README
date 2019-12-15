@@ -13,7 +13,7 @@
     outputs google trends data from 2004-01-01 to 2019-11-30 for 'avocado' and 'avocado toast' broken down by
     state + DC
 
-#apVSgoogle.py outputs bar graphs, hierarchical dentrographs, printed clusters
+#apVSgoogle.py outputs bar graphs, hierarchical dendrographs, printed clusters
 
 #hpVSgoogle.py >> hpVSgoogle.csv, hpVSgoogleClusters.csv, hpVSgoogleMClusters.csv
     clusters states based on homeownership, vacancies, 'avocado' searches and 'avocado toast' searches
