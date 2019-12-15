@@ -1,9 +1,6 @@
-# hpVSgoogle.py >> hpVSgoogle.csv, hpVSgoogleClusters.csv, hpVSgoogleMClusters.csv
-
 from scipy.cluster import vq
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 
 K = 4
 

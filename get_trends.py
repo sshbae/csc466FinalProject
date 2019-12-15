@@ -1,9 +1,8 @@
-# http://www.apache.org/licenses/LICENSE-2.0
-# get_trends.py >> trends_avocado.csv, trends_avocado_toast.csv
+# pytrends is used under Apache License 2.0 - http://www.apache.org/licenses/LICENSE-2.0
+
 from pytrends.request import TrendReq
 import os
 import pandas as pd
-from typing import Dict
 
 pytrends = TrendReq(hl='en-US', tz=480, timeout=(10, 25), retries=2, backoff_factor=0.1)
 
