@@ -13,7 +13,9 @@
     outputs google trends data from 2004-01-01 to 2019-11-30 for 'avocado' and 'avocado toast' broken down by
     state + DC
 
-#apVSgoogle.py >> hpVSgoogle.csv, hpVSgoogleClusters.csv, hpVSgoogleMClusters.csv
+#apVSgoogle.py outputs bar graphs, hierarchical dentrographs, printed clusters
+
+#hpVSgoogle.py >> hpVSgoogle.csv, hpVSgoogleClusters.csv, hpVSgoogleMClusters.csv
     clusters states based on homeownership, vacancies, 'avocado' searches and 'avocado toast' searches
     hpVSgoogle.csv is the raw count for overlapping clusters
     hpVSgoogleClusters.csv are the clusters created
