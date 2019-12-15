@@ -21,4 +21,7 @@
      ownership, 'avocado toast' : vacancies
 
 #apVSrain.py >> finalProj/apvrainfall/conf_matrix_*.csv, stats_*.csv
-#classify.py <csv filename> <json filename>
+
+#apVSminWage.py
+    Prints the best model's accuracy on the test data, best score on the training data, and best hyperparameter values in addition to the confusion matrix for the testing data. Prints these values for both the single decision tree and the random forest 
+
